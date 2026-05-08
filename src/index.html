@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/css/output.css">
+    <title>To do list</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body class="w-screen min-h-screen h-screen overflow-x-hidden bg-olive-100 flex justify-center items-center px-10 py-10 box-border">
+    
+    <!--Filtering-->
+    <aside class="shadow-md gap-5 p-5 w-1/6 bg-white h-1/2 flex flex-col justify-self-center justify-start items-center rounded-2xl">
+        <h1 class="font-bold text-2xl">Filter items</h1>
+        <form action="">
+            <input type="checkbox" id="completed" name="completed">
+            <label for="completed">completed</label><br>
+            <input type="checkbox" id="pending" name="pending">
+            <label for="completed">pending</label><br>
+            <input type="checkbox" id="due" name="due">
+            <label for="completed">due</label>
+        </form>
+    </aside>
+
+    <!--Main parent container-->
+    <main class="flex-1 flex flex-col justify-start items-center gap-10 h-full px-10">
+        
+        <!--Navigation header-->
+        <nav class=" shadow-sm bg-white w-full rounded-2xl h-24 py-2 flex justify-center items-center">
+            <div class="relative w-1/2 rounded-2xl h-13 outline-0 pl-10 pr-3 box-border">
+                <input placeholder="search..." class="w-full border border-gray-300 rounded-md h-13 outline-0 pl-10 pr-3 box-border" type="text">
+                <i class="fa-brands fa-sistrix absolute left-13 top-5"></i>
+            </div>
+            <input class="bg-sky-500 h-13 rounded-md text-white w-13" type="button" value="+">
+        </nav>
+
+        <!--Empty task card-->
+        <div class="border-dotted border-gray-400 justify-self-center flex bg-linear-to-b from-sky-400 to-sky-700 h-1/3 w-full rounded-2xl text-white justify-center items-center">
+            <img class="h-50 w-70" src="/src/res/guy_resting.png" alt="">
+            <h1 class="text-2xl">No tasks yet. <br> Do one now</h1>
+        </div>
+
+        <!--tasks container-->
+        <div id="task-container" class="flex flex-col justify-start items-center w-full h-full">
+            
+            <div class="flex w-full h-auto justify-end gap-5">
+                <input class="text-white rounded-md p-2 bg-green-300" type="button" value="Today">
+                <input class="text-white rounded-md p-2 bg-green-300" type="button" value="Yesterday">
+                <input class="text-white rounded-md p-2 bg-green-300" type="button" value="Older than 2 days">
+            </div>
+
+            <!--Task card-->
+            <div class="mt-5 shadow-md border-dotted border-gray-400 justify-self-center flex-col flex bg-linear-to-b bg-white min-h-1/3 h-auto min-w-12 w-1/2 rounded-2xl justify-start items-center">
+                <div class="rounded-t-2xl px-10 items-center justify-between flex w-full h-15">
+                    <h1 class="font-semibold">Pending</h1>
+                    <h1 class="font-semibold">Today, 7:00 AM</h1>
+                </div>
+
+                <div class=" mt-5 flex-1 flex w-full flex-col justify-start items-center break-normal pb-5 px-10">
+
+                <span class="h-10 w-10 justify-center items-center flex rounded-md bg-green-300">
+                    <i class="fa-solid fa-seedling text-white"></i>
+                </span>
+                
+                <h1 class="font-semibold text-xl">
+                    title goes here
+                </h1>
+
+                <h1 class="font-light">
+                    Description goes here
+                </h1>
+
+                </div>
+
+                <div class=" pe-10 gap-2 flex rounded-b-md self-end w-full justify-end items-center h-17">
+                        
+                    <span class="h-10 w-10 justify-center items-center flex rounded-md bg-yellow-300">
+                        <i class="fa-regular fa-pen-to-square text-white"></i>
+                    </span>
+
+                    <span class="h-10 w-10 justify-center items-center flex rounded-md bg-red-500">
+                        <i class="fa-regular fa-trash-can text-white"></i>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+
+    
+    </main>
+</body>
+</html>
