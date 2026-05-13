@@ -24,6 +24,42 @@ document.addEventListener('DOMContentLoaded', () => {
     let taskBeingEdited = null;
     const dueSoonThresholdMs = 60 * 60 * 1000;
     let activeDateFilter = 'all';
+    let audioContext = null;
+
+    function getAudioContext() {
+        if (audioContext) return audioContext;
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return null;
+        audioContext = new AudioContextClass();
+        return audioContext;
+    }
+
+    function playCompletionSound() {
+        const context = getAudioContext();
+        if (!context) return;
+
+        if (context.state === 'suspended') {
+            context.resume().catch(() => {});
+        }
+
+        const now = context.currentTime;
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(660, now);
+        oscillator.frequency.exponentialRampToValueAtTime(520, now + 0.08);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(0.12, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+
+        oscillator.start(now);
+        oscillator.stop(now + 0.13);
+    }
 
     createModalButton.addEventListener('click', () => {
         resetModal();
@@ -213,11 +249,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function setSelectedIcon(iconClass) {
+        icons.forEach((btn) => {
+            const iconElement = btn.querySelector('i');
+            const btnIconClass = iconElement ? iconElement.className.replace(' text-white', '') : '';
+            const isMatch = iconClass && btnIconClass === iconClass;
+            btn.classList.toggle('icon-selected', isMatch);
+        });
+    }
+
     function chooseIcon() {
         icons.forEach((btn) => {
             btn.addEventListener('click', () => {
                 const iconElement = btn.querySelector('i');
                 icon = iconElement.className.replace(' text-white', '');
+                setSelectedIcon(icon);
             });
         });
     }
@@ -344,6 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
         taskDescription.style.borderColor = '';
         taskDeadline.style.borderColor = '';
         iconGroup.style.borderColor = '';
+        setSelectedIcon('');
     }
 
     document.addEventListener('click', (e) => {
@@ -359,6 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTaskStatus(task);
             taskContainer.appendChild(task);
             applyFilters();
+            playCompletionSound();
             return;
         }
 
@@ -374,6 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
             taskDeadline.value = formatDateTimeInputValue(
                 task.dataset.taskDeadline ? new Date(task.dataset.taskDeadline) : null
             );
+            setSelectedIcon(icon);
 
             modal.classList.add('visible');
         }

@@ -1,3 +1,106 @@
 .visible {
     display: flex;
 }
+
+#modal {
+    transform: translateX(-50%);
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+#modal:hover {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18);
+}
+
+.task {
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.task:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+}
+
+.complete-task-button,
+.edit-task-button,
+.delete-task-button,
+#create-task-button,
+#create-modal-button,
+#hide-modal-button {
+    cursor: pointer;
+    transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+}
+
+.complete-task-button:hover,
+.edit-task-button:hover,
+.delete-task-button:hover,
+#create-task-button:hover,
+#create-modal-button:hover,
+#hide-modal-button:hover {
+    transform: translateY(-1px) scale(1.02);
+    filter: brightness(1.03);
+    box-shadow: 0 10px 18px rgba(15, 23, 42, 0.16);
+}
+
+.complete-task-button:active,
+.edit-task-button:active,
+.delete-task-button:active,
+#create-task-button:active,
+#create-modal-button:active,
+#hide-modal-button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+#create-task-button:focus-visible,
+#create-modal-button:focus-visible,
+#hide-modal-button:focus-visible {
+    outline: 2px solid #0f172a;
+    outline-offset: 2px;
+}
+
+.icon {
+    transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.icon:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.18);
+}
+
+.icon-selected {
+    outline: 2px solid #0f172a;
+    outline-offset: 2px;
+    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #modal,
+    .task,
+    .complete-task-button,
+    .edit-task-button,
+    .delete-task-button,
+    #create-task-button,
+    #create-modal-button,
+    #hide-modal-button,
+    .icon {
+        transition: none;
+    }
+
+    #modal:hover,
+    .task:hover,
+    .complete-task-button:hover,
+    .edit-task-button:hover,
+    .delete-task-button:hover,
+    #create-task-button:hover,
+    #create-modal-button:hover,
+    #hide-modal-button:hover,
+    .icon:hover,
+    .complete-task-button:active,
+    .edit-task-button:active,
+    .delete-task-button:active,
+    #create-task-button:active,
+    #create-modal-button:active,
+    #hide-modal-button:active {
+        transform: none;
+    }
+}
